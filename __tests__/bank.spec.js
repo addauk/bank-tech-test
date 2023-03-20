@@ -58,11 +58,77 @@ describe("Bank class", () => {
     });
   });
   describe("statement method", () => {
-    it.todo("prints a statement with only headers when no transactions");
-    it.todo("prints a statement that shows deposits and correct balance");
-    it.todo("prints a statement that shows withdrawls and correct balance");
-    it.todo(
-      "prints a statement that shows deposits and withdrawls in order with correctly tracking balances"
-    );
+    const consoleSpy = jest.spyOn(console, "log");
+
+    afterEach(() => {
+      consoleSpy.mockClear();
+    });
+
+    it("prints a statement with only headers when no transactions", () => {
+      let bank = new Bank();
+      bank.statement();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "date || credit || debit || balance"
+      );
+    });
+    it("prints a statement that shows deposits and correct balance", () => {
+      let bank = new Bank();
+      bank.deposit(100);
+      bank.deposit(1514.27);
+      bank.statement();
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        1,
+        "date || credit || debit || balance"
+      );
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        2,
+        "01/01/1999 || 1514.27 || || 1614.27"
+      );
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        3,
+        "01/01/1999 || 100.00 || || 100.00"
+      );
+    });
+    it("prints a statement that shows withdrawls and correct balance", () => {
+      let bank = new Bank();
+      bank.withdraw(100);
+      bank.withdraw(1514.27);
+      bank.statement();
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        1,
+        "date || credit || debit || balance"
+      );
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        2,
+        "01/01/1999 || || 1514.27 || -1614.27"
+      );
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        3,
+        "01/01/1999 || || 100.00 || -100.00"
+      );
+    });
+    it("prints a statement that shows deposits and withdrawls in order with correctly tracking balances", () => {
+      let bank = new Bank();
+      bank.deposit(1000);
+      bank.deposit(2000);
+      bank.withdraw(500);
+      bank.statement();
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        1,
+        "date || credit || debit || balance"
+      );
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        2,
+        "01/01/1999 || || 500.00 || 2500.00"
+      );
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        3,
+        "01/01/1999 || 2000.00 || || 3000.00"
+      );
+      expect(consoleSpy).toHaveBeenNthCalledWith(
+        4,
+        "01/01/1999 || 1000.00 || || 1000.00"
+      );
+    });
   });
 });
