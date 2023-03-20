@@ -8,8 +8,12 @@ class Bank {
 
   deposit(amount) {
     this.balance += amount;
-
     this.transactions.push({ date: this.#todayFormatted(), amount: amount });
+  }
+
+  withdraw(amount) {
+    this.balance -= amount;
+    this.transactions.push({ date: this.#todayFormatted(), amount: -amount });
   }
 
   #todayFormatted() {
