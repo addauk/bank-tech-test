@@ -2,7 +2,67 @@
 
 ## Installation
 
+Clone the repository using
+
+```
+$ git clone
+```
+
+Change into the dircetory
+
+```
+$ cd bank_tech_test
+```
+
+Install necessary modules
+
+```
+$ npm install
+```
+
+## Testing the program
+
+From the directory:
+
+```
+$ npm test
+```
+
 ## Using the program
+
+From the directory:
+
+```
+$ node
+```
+
+to start the command line interface.
+Then run the following two commands:
+
+```
+const Bank = require("./bank")
+let bank = new Bank()
+```
+
+You can use three methods to interact with the bank programme.
+
+```
+bank.deposit()
+```
+
+Should be provided with a numeric value.
+
+```
+bank.withdraw()
+```
+
+Should be provided with a numeric value.
+
+```
+bank.statement()
+```
+
+Will output a record of all transactions to date.
 
 ## Specification
 
@@ -27,7 +87,3 @@ date || credit || debit || balance
 13/01/2023 || 2000.00 || || 3000.00
 10/01/2023 || 1000.00 || || 1000.00
 ```
-
-## Self-assessment
-
-Once you have completed the challenge and feel happy with your solution, here's a form to help you reflect on the quality of your code: https://docs.google.com/forms/d/1Q-NnqVObbGLDHxlvbUfeAC7yBCf3eCjTmz6GOqC9Aeo/edit
