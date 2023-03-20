@@ -11,7 +11,7 @@ $ git clone
 Change into the dircetory
 
 ```
-$ cd bank_tech_test
+$ cd bank-tech-test
 ```
 
 Install necessary modules
