@@ -5,7 +5,7 @@
 Clone the repository using
 
 ```
-$ git clone
+$ git clone git@github.com:addauk/bank-tech-test.git
 ```
 
 Change into the dircetory
