@@ -1,4 +1,6 @@
 // file bank.js
+const DateFormatter = require("./dateFormatter");
+const StatementPrinter = require("./statementPrinter");
 
 class Bank {
   #transactions;
@@ -11,28 +13,22 @@ class Bank {
 
   deposit(amount) {
     this.#balance += amount;
-    this.#transactions.push({ date: this.#todayFormatted(), amount: amount });
+    this.#transactions.push({
+      date: DateFormatter.europeanToday(),
+      amount: amount,
+    });
   }
 
   withdraw(amount) {
     this.#balance -= amount;
-    this.#transactions.push({ date: this.#todayFormatted(), amount: -amount });
+    this.#transactions.push({
+      date: DateFormatter.europeanToday(),
+      amount: -amount,
+    });
   }
 
   statement() {
-    console.log("date || credit || debit || balance");
-    let balance = this.#balance;
-    this.#transactions.reverse().forEach((transaction) => {
-      let output = transaction.date + " || ";
-      if (transaction.amount > 0) {
-        output += transaction.amount.toFixed(2) + " || || ";
-      } else {
-        output += "|| " + Math.abs(transaction.amount).toFixed(2) + " || ";
-      }
-      output += balance.toFixed(2);
-      balance -= transaction.amount;
-      console.log(output);
-    });
+    StatementPrinter.print(this.#transactions, this.#balance);
   }
 
   get transactions() {
@@ -41,18 +37,6 @@ class Bank {
 
   get balance() {
     return this.#balance;
-  }
-
-  #todayFormatted() {
-    let today = new Date(Date.now());
-    let yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1;
-    let dd = today.getDate();
-    dd = dd.toString().padStart(2, 0);
-    mm = mm.toString().padStart(2, 0);
-    let formattedToday = dd + "/" + mm + "/" + yyyy;
-
-    return formattedToday;
   }
 }
 
