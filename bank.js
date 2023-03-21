@@ -1,25 +1,28 @@
 // file bank.js
 
 class Bank {
+  #transactions;
+  #balance;
+
   constructor() {
-    this.balance = 0.0;
-    this.transactions = [];
+    this.#balance = 0.0;
+    this.#transactions = [];
   }
 
   deposit(amount) {
-    this.balance += amount;
-    this.transactions.push({ date: this.#todayFormatted(), amount: amount });
+    this.#balance += amount;
+    this.#transactions.push({ date: this.#todayFormatted(), amount: amount });
   }
 
   withdraw(amount) {
-    this.balance -= amount;
-    this.transactions.push({ date: this.#todayFormatted(), amount: -amount });
+    this.#balance -= amount;
+    this.#transactions.push({ date: this.#todayFormatted(), amount: -amount });
   }
 
   statement() {
     console.log("date || credit || debit || balance");
-    let balance = this.balance;
-    this.transactions.reverse().forEach((transaction) => {
+    let balance = this.#balance;
+    this.#transactions.reverse().forEach((transaction) => {
       let output = transaction.date + " || ";
       if (transaction.amount > 0) {
         output += transaction.amount.toFixed(2) + " || || ";
@@ -30,6 +33,14 @@ class Bank {
       balance -= transaction.amount;
       console.log(output);
     });
+  }
+
+  get transactions() {
+    return this.#transactions;
+  }
+
+  get balance() {
+    return this.#balance;
   }
 
   #todayFormatted() {
